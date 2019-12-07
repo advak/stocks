@@ -1,6 +1,6 @@
 from flask import Flask
 from flask_restful import Api
-from resources.user import UserRegister
+from resources.user import UserSignUp, UserSignIn
 
 
 app = Flask(__name__)
@@ -13,7 +13,8 @@ def create_tables():
     db.create_all()
 
 
-api.add_resource(UserRegister, '/register')
+api.add_resource(UserSignUp, '/sign_up')
+api.add_resource(UserSignIn, '/sign_in')
 
 
 if __name__ == '__main__':
