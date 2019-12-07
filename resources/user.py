@@ -1,5 +1,5 @@
 from flask_restful import Resource, reqparse
-from models.user import insert_to_table
+from models.user import UserModel
 
 
 class UserRegister(Resource):
@@ -23,5 +23,8 @@ class UserRegister(Resource):
 
     def post(self):
         data = UserRegister.parser.parse_args()
-        insert_to_table(**data)
+        if UserModel.find_by_email(data["email"]):
+            return {"message": "User with that email already exists"}, 400
+        user = UserModel(**data)
+        user.save_to_db()
         return {"message": "User created successfully"}, 201
