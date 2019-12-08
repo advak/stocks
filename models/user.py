@@ -1,3 +1,4 @@
+import datetime
 from werkzeug.security import generate_password_hash, check_password_hash
 from db import db
 
@@ -10,6 +11,7 @@ class UserModel(db.Model):
     first_name = db.Column(db.String(50))
     last_name = db.Column(db.String(50))
     password_hash = db.Column(db.String(128))
+    created_at = db.Column(db.DateTime, default=datetime.datetime.now)
 
     def __init__(self, email, first_name, last_name):
         self.email = email
