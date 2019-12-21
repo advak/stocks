@@ -1,11 +1,8 @@
-from flask import Flask
 from flask_restful import Api
 from resources.user import UserSignUp, UserSignIn
+from app_init_file import app
 
-
-app = Flask(__name__)
 api = Api(app)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///data.db'
 
 
 @app.before_first_request

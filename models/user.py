@@ -1,3 +1,4 @@
+import uuid
 import datetime
 from werkzeug.security import generate_password_hash, check_password_hash
 from db import db
@@ -6,6 +7,7 @@ from db import db
 class UserModel(db.Model):
     __tablename__ = 'users'
     id = db.Column(db.Integer, primary_key=True)
+    public_id = db.Column(db.String(50), unique=True)
     email = db.Column(db.String(100))
     first_name = db.Column(db.String(50))
     last_name = db.Column(db.String(50))
@@ -17,6 +19,7 @@ class UserModel(db.Model):
         self.email = email
         self.first_name = first_name
         self.last_name = last_name
+        self.public_id = str(uuid.uuid4())
 
     def set_password(self, password):
         self.password_hash = generate_password_hash(password)
