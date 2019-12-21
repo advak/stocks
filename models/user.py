@@ -7,10 +7,10 @@ class UserModel(db.Model):
     __tablename__ = 'users'
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(100))
-    username = db.Column(db.String(80))
     first_name = db.Column(db.String(50))
     last_name = db.Column(db.String(50))
     password_hash = db.Column(db.String(128))
+    portfolios = db.relationship('PortfolioModel', backref='owner')
     created_at = db.Column(db.DateTime, default=datetime.datetime.now)
 
     def __init__(self, email, first_name, last_name):

@@ -1,5 +1,6 @@
 from flask_restful import Resource, reqparse
 from models.user import UserModel
+from models.portfolio import PortfolioModel
 
 
 class UserSignUp(Resource):
@@ -20,6 +21,10 @@ class UserSignUp(Resource):
                         type=str,
                         required=True,
                         help="This field cannot be left blank!")
+    parser.add_argument('portfolio_name',
+                        type=str,
+                        required=True,
+                        help="This field cannot be left blank!")
 
     def post(self):
         data = UserSignUp.parser.parse_args()
@@ -28,6 +33,10 @@ class UserSignUp(Resource):
         user = UserModel(data["email"], data["first_name"], data["last_name"])
         user.set_password(data["password"])
         user.save_to_db()
+
+        portfolio = PortfolioModel(data["portfolio_name"], owner=user)
+        portfolio.save_to_db()
+
         return {"message": "User created successfully"}, 201
 
 
