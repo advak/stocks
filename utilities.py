@@ -14,7 +14,7 @@ def validate_token(func):
                 data = jwt.decode(token, app.config['SECRET_KEY'])
                 current_user = UserModel.find_by_public_id(data["public_id"])
             except:
-                return {"message": "Token is invalid"}
+                return {"message": "Token is invalid"}, 401
 
             return func(*args, **kwargs, current_user=current_user)
     return wrapper

@@ -1,5 +1,5 @@
 from flask import jsonify
-from flask_restful import Resource, reqparse
+from flask_restful import Resource
 from models.portfolio import PortfolioModel
 from utilities import validate_token
 
