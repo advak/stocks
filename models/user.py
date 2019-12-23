@@ -38,3 +38,7 @@ class UserModel(db.Model):
     @classmethod
     def find_by_id(cls, _id):
         return cls.query.filter_by(id=_id).first()
+
+    @classmethod
+    def find_by_public_id(cls, public_id):
+        return cls.query.filter_by(public_id=public_id).first()

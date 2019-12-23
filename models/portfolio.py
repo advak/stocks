@@ -20,3 +20,7 @@ class PortfolioModel(db.Model):
     @classmethod
     def find_by_name(cls, email):
         return cls.query.filter_by(email=email).first()
+
+    @classmethod
+    def find_by_user_id(cls, _id):
+        return cls.query.filter_by(user_id=_id).all()
