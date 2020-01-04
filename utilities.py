@@ -1,7 +1,7 @@
 from flask import request
 import jwt
-from app_init_file import app
 from models.user import UserModel
+from app_init_file import app
 
 
 def validate_token(func):

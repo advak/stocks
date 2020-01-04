@@ -1,10 +1,20 @@
+import atexit
 from flask_restful import Api
 from resources.user import UserSignUp, UserSignIn
 from resources.portfolio import Portfolio
 from resources.stock import Stock
 from app_init_file import app
+from daily_report import fill_stock_yesterday_and_today
+from apscheduler.schedulers.background import BackgroundScheduler
 
 api = Api(app)
+
+scheduler = BackgroundScheduler()
+scheduler.add_job(func=fill_stock_yesterday_and_today, trigger="cron", hour=23, minute=59)
+scheduler.start()
+
+# Shut down the scheduler when exiting the app
+atexit.register(lambda: scheduler.shutdown())
 
 
 @app.before_first_request
@@ -21,4 +31,4 @@ api.add_resource(Stock, '/stock')
 if __name__ == '__main__':
     from db import db
     db.init_app(app)
-    app.run(port=5000, debug=True)
+    app.run(port=5000, debug=True, use_reloader=False)

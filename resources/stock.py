@@ -14,7 +14,7 @@ class Stock(Resource):
                         type=str,
                         required=True,
                         help="This field cannot be left blank!")
-    parser.add_argument('price',
+    parser.add_argument('purchase_price',
                         type=float,
                         required=True,
                         help="This field cannot be left blank!")
@@ -41,9 +41,10 @@ class Stock(Resource):
 
         stock = StockModel(data["portfolio_id"],
                            data["symbol"],
-                           data["price"],
+                           data["purchase_price"],
                            data["buy"],
                            data["quantity"],
                            data["date"])
+
         stock.save_to_db()
         return {"message": "Stock added successfully"}, 201
