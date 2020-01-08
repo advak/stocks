@@ -6,7 +6,7 @@ from resources.stock import Stock
 from app_init_file import app
 from daily_report import get_daily_gain
 from apscheduler.schedulers.background import BackgroundScheduler
-from db import db
+
 
 api = Api(app)
 
@@ -18,17 +18,13 @@ scheduler.start()
 atexit.register(lambda: scheduler.shutdown())
 
 
-@app.before_first_request
-def create_tables():
-    db.create_all()
-
-
 api.add_resource(UserSignUp, '/sign_up')
 api.add_resource(UserSignIn, '/sign_in')
 api.add_resource(Portfolio, '/portfolio')
 api.add_resource(Stock, '/stock')
 
-db.init_app(app)
 
 if __name__ == '__main__':
+    from db import db
+    db.init_app(app)
     app.run(port=5000, debug=True, use_reloader=False)
