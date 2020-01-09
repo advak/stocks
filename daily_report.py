@@ -71,7 +71,7 @@ def send_email(send_to_email, total_gain, portfolio_id):
     password = 'greatstocks100'
     send_to_email = send_to_email
     subject = 'Your daily report from Stocker'
-    message = 'Your total gain in portfolio {} for today is {} USD'.format(portfolio_id, total_gain)
+    message = 'Your total gain in portfolio {} for today is {:.2f} USD'.format(portfolio_id, total_gain)
 
     msg = MIMEMultipart()
     msg['From'] = email
